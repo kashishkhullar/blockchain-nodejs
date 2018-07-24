@@ -22,6 +22,10 @@ class Block{
         Data     : ${this.data}`;
     }
 
+    static genesis(){
+        return new this('Genesis time','----','f1574-h4gh',[]);
+    }
+
 }
 
 // share this class by exporting it
