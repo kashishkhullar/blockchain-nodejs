@@ -26,6 +26,14 @@ class Block{
         return new this('Genesis time','----','f1574-h4gh',[]);
     }
 
+    static mineBlock(lastBlock,data){
+        const timestamp = Date.now();
+        const lastHash = lastBlock.hash;
+        const hash = 'todo-hash';
+
+        return new this(timestamp,lastHash,hash,data);
+    }
+
 }
 
 // share this class by exporting it

@@ -2,8 +2,15 @@
 
 const Block = require('./block');
 
-const block = new Block('foo','bar','zoo','bas');
+//creating a new instance
+// const block = new Block('foo','bar','zoo','bas');
 
-console.log(block.toString());
+//testing the toString function
+// console.log(block.toString());
 
-console.log(Block.genesis().toString());
+//testing the genesis function
+// console.log(Block.genesis().toString());
+
+//testing the mineBlock function
+const fooBlock = Block.mineBlock(Block.genesis(),"foo");
+console.log(fooBlock.toString());
