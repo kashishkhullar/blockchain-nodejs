@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^22.0.0",
     "nodemon": "^1.18.3"
   },
   "dependencies": {

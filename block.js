@@ -22,9 +22,17 @@ class Block{
         Data     : ${this.data}`;
     }
 
+    /**
+     * function to create the first block or the genesis block
+     */
+
     static genesis(){
         return new this('Genesis time','----','f1574-h4gh',[]);
     }
+
+    /**
+     * function to create new blocks or to mine new blocks
+     */
 
     static mineBlock(lastBlock,data){
         const timestamp = Date.now();
@@ -33,6 +41,10 @@ class Block{
 
         return new this(timestamp,lastHash,hash,data);
     }
+
+    /**
+     * function to create the hash value of the block
+     */
 
     static hash(timestamp,lastHash,data){
         return SHA256(`${timestamp}${lastHash}${data}`).toString();
