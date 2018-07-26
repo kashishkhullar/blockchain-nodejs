@@ -56,7 +56,7 @@ class Block{
 
     static blockHash(block){
         //destructuring
-        const {timestamp, lastBlock, data } = block;
+        const { timestamp, lastHash, data } = block;
         return Block.hash(timestamp,lastHash,data);
     }
 
