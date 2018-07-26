@@ -43,11 +43,21 @@ class Block{
     }
 
     /**
-     * function to create the hash value of the block
+     * function to create the hash value of the block data
      */
 
     static hash(timestamp,lastHash,data){
         return SHA256(`${timestamp}${lastHash}${data}`).toString();
+    }
+
+    /**
+     * return the hash value of the passed block
+     */
+
+    static blockHash(block){
+        //destructuring
+        const {timestamp, lastBlock, data } = block;
+        return Block.hash(timestamp,lastHash,data);
     }
 
 }
