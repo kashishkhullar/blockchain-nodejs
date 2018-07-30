@@ -32,5 +32,5 @@ app.post('/mine',(req,res)=>{
 
 //server configurations
 app.listen(HTTP_PORT,()=>{
-    console.log(`listeing on port ${HTTP_PORT}`);
+    console.log(`listening on port ${HTTP_PORT}`);
 })
