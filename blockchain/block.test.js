@@ -1,4 +1,5 @@
 const Block = require('./block');
+const { DIFFICULTY } = require('../config.js');
 
 /**
  * describe is jest specific function
@@ -32,7 +33,11 @@ describe("Block",()=>{
         expect(block.data).toEqual(data);
     });
 
-    it("sets the `lastHash` to matc the hash of the last block",()=>{
+    it("sets the `lastHash` to match the hash of the last block",()=>{
         expect(block.lastHash).toEqual(lastBlock.hash);
     });
+
+    it('generates a hash that matches the difficutly',()=>{
+        expect(block.hash.substring(0,DIFFICULTY)).toEqual('0'.repeat(DIFFICULTY));
+    })
 })

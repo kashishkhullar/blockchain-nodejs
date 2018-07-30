@@ -1,6 +1,6 @@
 const SHA256 = require('crypto-js/sha256');
 
-const DIFICULTY = 4;
+const { DIFFICULTY } = require('../config.js');
 
 class Block{
     constructor(timestamp,lastHash,hash,data,nonce){
@@ -51,7 +51,7 @@ class Block{
             timestamp = Date.now();
             hash = Block.hash(timestamp,lastHash,data,nonce);
             // checking if we have the required no of leading number of zeros
-        } while(hash.substring(0,DIFICULTY) !== '0'.repeat(DIFICULTY));
+        } while(hash.substring(0,DIFFICULTY) !== '0'.repeat(DIFFICULTY));
 
         return new this(timestamp,lastHash,hash,data,nonce);
     }
