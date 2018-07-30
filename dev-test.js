@@ -1,6 +1,6 @@
 // file used to explore block class
 
-const Block = require('./block');
+const Block = require('./blockchain/block');
 
 //creating a new instance
 // const block = new Block('foo','bar','zoo','bas');
