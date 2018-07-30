@@ -35,6 +35,10 @@ class Blockchain{
         return true;
 
     }
+    /**
+     * replace the chain if the chain recieved from another miner
+     * is longer and valid
+     */
 
     replaceChain(newChain){
         if(newChain.length <= this.chain.length){
