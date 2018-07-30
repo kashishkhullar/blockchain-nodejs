@@ -19,6 +19,8 @@ class P2pserver{
         const server = new WebSocket.Server({ port: P2P_PORT });
 
         // event listener and a callback function for any new connection
+        // on any new connection the current instance will send the current chain
+        // to the newly connected peer
         server.on('connection',socket => this.connectSocket(socket));
 
         // to connect to the peers that we have specified
@@ -27,12 +29,14 @@ class P2pserver{
         console.log(`Listening for peer to peer connection on port : ${P2P_PORT}`);
     }
 
-    //push the new socket to the sockets array
+    // after making connection to a socket
     connectSocket(socket){
 
+        // push the socket too the socket array
         this.sockets.push(socket);
         console.log("Socket connected");
 
+        // register a message event listener to the socket
         this.messageHandler(socket);
 
         // on new connection send the blockchain chain to the peer
