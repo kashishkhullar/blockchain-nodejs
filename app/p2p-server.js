@@ -35,8 +35,9 @@ class P2pserver{
 
         this.messageHandler(socket);
 
-        socket.send(JSON.stringify(this.blockchain.chain));
+        // on new connection send the blockchain chain to the peer
 
+        this.sendChain(socket);
     }
 
     connectToPeers(){
@@ -55,11 +56,37 @@ class P2pserver{
     }
 
     messageHandler(socket){
+        //on recieving a message execute a callback function
         socket.on('message',message =>{
             const data = JSON.parse(message);
-            console.log("data ", data);            
+            console.log("data ", data);
+            /**
+             * call replace blockchain if the 
+             * recieved chain is longer
+             */
+            this.blockchain.replaceChain(data);
         });
     }
+    /**
+     * helper function to send the chain instance
+     */
+
+    sendChain(socket){
+        socket.send(JSON.stringify(this.blockchain.chain));
+    }
+
+    /**
+     * utility function to sync the chain
+     * whenever a new block is added to
+     * the blockchain
+     */
+
+    syncChain(){
+        this.sockets.forEach(socket =>{
+            this.sendChain(socket);
+        });
+    }
+
 
 
 }
