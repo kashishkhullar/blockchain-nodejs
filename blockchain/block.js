@@ -39,14 +39,21 @@ class Block{
      */
 
     static mineBlock(lastBlock,data){
-        const timestamp = Date.now();
+
+        let hash;
+        let timestamp;
         const lastHash = lastBlock.hash;
 
         let nonce = 0;
-        const hash = Block.hash(timestamp,lastHash,data,nonce);
+        //generate the hash of the block
+        do {
+            nonce++;
+            timestamp = Date.now();
+            hash = Block.hash(timestamp,lastHash,data,nonce);
+            // checking if we have the required no of leading number of zeros
+        } while(hash.substring(0,DIFICULTY) !== '0'.repeat(DIFICULTY));
 
-
-        return new this(timestamp,lastHash,hash,data);
+        return new this(timestamp,lastHash,hash,data,nonce);
     }
 
     /**
