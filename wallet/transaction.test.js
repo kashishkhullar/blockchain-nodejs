@@ -28,6 +28,15 @@ describe('Transaction',()=>{
         expect(transaction.input.amount).toEqual(wallet.balance);
     });
 
+    it('validates a valid transaction',()=>{
+        expect(Transaction.verifyTransaction(transaction)).toBe(true);
+    });
+
+    it('invalidates a invalid transaction',()=>{
+        transaction.outputs[0].amount = 500000;
+        expect(Transaction.verifyTransaction(transaction)).toBe(false);
+    });
+
 
 });
 
@@ -40,4 +49,5 @@ describe('transacting with less balance',()=>{
     it('does not create the transaction',()=>{
         expect(transaction).toEqual(undefined);
     })
-})
+});
+
