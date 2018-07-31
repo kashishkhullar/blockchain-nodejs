@@ -38,6 +38,7 @@ describe("Block",()=>{
     });
 
     it('generates a hash that matches the difficutly',()=>{
+        // use the dynamic difficulty to match the difficulty
         expect(block.hash.substring(0,block.difficulty)).toEqual('0'.repeat(block.difficulty));
     });
 
@@ -46,6 +47,6 @@ describe("Block",()=>{
     });
 
     it('raise the difficulty for a faster generated block',()=>{
-        expect(Block.adjustDifficulty(block,block.timestamp - 300000)).toEqual(block.difficulty + 1);
+        expect(Block.adjustDifficulty(block,block.timestamp + 1)).toEqual(block.difficulty + 1);
     })
 })
