@@ -18,6 +18,15 @@ class ChainUtil{
     static hash(data){
         return SHA256(JSON.stringify(data)).toString();
     }
+    /**
+     * verify the transaction signature to 
+     * check its validity using the method provided
+     * in EC module
+     */
+
+    static verifySignature(publicKey,signature,dataHash){
+        return ec.keyFromPublic(publicKey,'hex').verify(dataHash,signature);
+    }
 
 
 }
