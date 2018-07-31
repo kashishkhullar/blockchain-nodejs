@@ -22,7 +22,7 @@ class Transaction{
         return transaction;
     }
 
-    signTransaction(transaction,senderWallet){
+    static signTransaction(transaction,senderWallet){
         transaction.input = {
             timestamp: Date.now(),
             amount: senderWallet.balance,
