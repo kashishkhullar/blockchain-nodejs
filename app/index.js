@@ -26,7 +26,7 @@ const wallet = new Wallet();
 const transactionPool = new TransactionPool();
 
 // create a p2p server instance with the blockchain
-const p2pserver = new P2pserver(blockchain);
+const p2pserver = new P2pserver(blockchain,transactionPool);
 
 //EXPOSED APIs
 
@@ -58,6 +58,7 @@ app.get('/transactions',(req,res)=>{
 app.post('/transact',(req,res)=>{
     const { recipient, amount } = req.body;
     const transaction = wallet.createTransaction(recipient, amount, transactionPool);
+    p2pserver.broadcastTransaction(transaction);
     res.redirect('/transactions');
 });
 

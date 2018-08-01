@@ -6,10 +6,15 @@ const P2P_PORT = process.env.P2P_PORT || 5001;
 //list of address to connect to
 const peers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 
+const MESSAGE_TYPE = {
+    chain: 'CHAIN',
+    transaction: 'TRANSACTION'
+}
 class P2pserver{
-    constructor(blockchain){
+    constructor(blockchain,transactionPool){
         this.blockchain = blockchain;
         this.sockets = [];
+        this.transactionPool = transactionPool;
     }
 
     // create a new p2p server and connections
@@ -64,11 +69,24 @@ class P2pserver{
         socket.on('message',message =>{
             const data = JSON.parse(message);
             console.log("data ", data);
-            /**
-             * call replace blockchain if the 
-             * recieved chain is longer
-             */
-            this.blockchain.replaceChain(data);
+
+            switch(data.type){
+                case MESSAGE_TYPE.chain:
+                    /**
+                     * call replace blockchain if the 
+                     * recieved chain is longer
+                     */
+                    this.blockchain.replaceChain(data.chain);
+                    break;
+                case MESSAGE_TYPE.transaction:
+                    /**
+                     * add transaction to the transaction
+                     * pool
+                     */
+                    this.transactionPool.updateOrAddTransaction(data.transaction);
+                    break;
+            }
+            
         });
     }
     /**
@@ -76,7 +94,10 @@ class P2pserver{
      */
 
     sendChain(socket){
-        socket.send(JSON.stringify(this.blockchain.chain));
+        socket.send(JSON.stringify({
+            type: MESSAGE_TYPE.chain,
+            chain:this.blockchain.chain
+        }));
     }
 
     /**
@@ -90,6 +111,30 @@ class P2pserver{
             this.sendChain(socket);
         });
     }
+
+    /**
+     * sends users blockchain to every peer
+     * it will send individual transactions
+     * not the entire pool
+     */
+
+     broadcastTransaction(transaction){
+         this.sockets.forEach(socket =>{
+             this.sendTransaction(socket,transaction);
+         });
+     }
+
+     /**
+      * function to send transaction as a message
+      * to a socket
+      */
+
+      sendTransaction(socket,transaction){
+          socket.send(JSON.stringify({
+              type:MESSAGE_TYPE.transaction,
+              transaction:transaction
+            }));
+      }
 
 
 

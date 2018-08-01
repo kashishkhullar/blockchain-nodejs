@@ -46,6 +46,7 @@ class Blockchain{
             return;
         }else if(!this.isValidChain(newChain)){
             console.log("Recieved chain is invalid");
+            return;
         }
         
         console.log("Replacing the current chain with new chain");
