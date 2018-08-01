@@ -1,10 +1,11 @@
 const Transaction = require('./transaction');
 const Wallet = require('./index');
 
-let transaction,wallet, recipient, amount;
 
 
 describe('Transaction',()=>{
+
+    let transaction,wallet, recipient, amount;
 
 
     beforeEach(()=>{
@@ -37,17 +38,42 @@ describe('Transaction',()=>{
         expect(Transaction.verifyTransaction(transaction)).toBe(false);
     });
 
-
-});
-
-describe('transacting with less balance',()=>{
-    beforeEach(()=>{
-        amount = 5000;
-        transaction = Transaction.newTransaction(wallet,recipient,amount);
+    describe('transacting with less balance',()=>{
+        beforeEach(()=>{
+            amount = 5000;
+            transaction = Transaction.newTransaction(wallet,recipient,amount);
+        });
+    
+        it('does not create the transaction',()=>{
+            expect(transaction).toEqual(undefined);
+        })
     });
 
-    it('does not create the transaction',()=>{
-        expect(transaction).toEqual(undefined);
-    })
+    
+    describe('updated transaction',()=>{
+        let nextAmount, nextRecipient;
+
+        beforeEach(()=>{
+            nextAmount = 20;
+            nextRecipient = 'n3xt-4ddr355';
+            transaction = transaction.update(wallet, nextRecipient, nextAmount);
+        });
+
+        it('substracts the nect amount from the sender\'s outouts',()=>{
+            expect(transaction.outputs.find(output => output.address === wallet.publicKey).amount)
+            .toEqual(wallet.balance - amount -nextAmount);
+        });
+
+        it('outputs an amount for the next recipient',()=>{
+            expect(transaction.outputs.find(output => output.address === nextRecipient).amount)
+            .toEqual(nextAmount);
+        })
+
+
+    });
+
+
 });
+
+
 
