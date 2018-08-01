@@ -45,7 +45,7 @@ class Wallet{
         else{
             // creates a new transaction and updates the transaction pool
             transaction = Transaction.newTransaction(this,recipient,amount);
-            transaction.updateOrAddTransaction(transaction);
+            transactionPool.updateOrAddTransaction(transaction);
         }
 
         return transaction;
