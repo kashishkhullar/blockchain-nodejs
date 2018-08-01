@@ -53,7 +53,13 @@ app.post('/mine',(req,res)=>{
 // api to view transaction in the transaction pool
 app.get('/transactions',(req,res)=>{
     res.json(transactionPool.transactions);
-})
+});
+
+app.post('/transact',(req,res)=>{
+    const { recipient, amount } = req.body;
+    const transaction = wallet.createTransaction(recipient, amount, transactionPool);
+    res.redirect('/transactions');
+});
 
 // app server configurations
 app.listen(HTTP_PORT,()=>{
