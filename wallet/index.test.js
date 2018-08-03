@@ -38,7 +38,7 @@ describe('Wallet',()=>{
 
             // checks if output was created again
             it('clones the `sendAmount`output for the transaction ',()=>{
-                //filter will return only those items that satisfy the condition
+                // filter will return only those items that satisfy the condition
                 // hence an array of only the required outputs
                 // map will do some processing over each individual item and replace it with something
                 // else here the amount of the output

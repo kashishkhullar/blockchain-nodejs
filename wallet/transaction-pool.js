@@ -7,6 +7,9 @@ class TransactionPool{
     /** 
      * this method will add a transaction
      * it is possible that the transaction exists already
+     * so it will replace the transaction with the new transaction
+     * after checking the input id and adding new outputs if any
+     * we call this method and replace the transaction in the pool
      */
     updateOrAddTransaction(transaction){
         // get the transaction while checking if it exists

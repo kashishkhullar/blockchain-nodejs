@@ -7,6 +7,10 @@ class Transaction{
         this.outputs = [];
     }
 
+    /**
+     * add extra ouputs to the transactions
+     */
+
     update(senderWallet,recipient,amount){
         const senderOutput = this.outputs.find(output => output.address === senderWallet.publicKey);
 
@@ -21,6 +25,10 @@ class Transaction{
 
         return this;
     }
+
+    /**
+     * create a new transaction
+     */
 
     static newTransaction(senderWallet,recipient,amount){
         const transaction = new this();
@@ -37,6 +45,10 @@ class Transaction{
         return transaction;
     }
 
+    /**
+     * create input and sign the outputs
+     */
+
     static signTransaction(transaction,senderWallet){
         transaction.input = {
             timestamp: Date.now(),
@@ -45,6 +57,10 @@ class Transaction{
             signature: senderWallet.sign(ChainUtil.hash(transaction.outputs))
         }
     }
+
+    /**
+     * verify the transaction by decrypting and matching
+     */
 
     static verifyTransaction(transaction){
         return ChainUtil.verifySignature(
