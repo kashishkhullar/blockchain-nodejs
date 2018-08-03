@@ -55,12 +55,19 @@ app.get('/transactions',(req,res)=>{
     res.json(transactionPool.transactions);
 });
 
+
+// create transactions
 app.post('/transact',(req,res)=>{
     const { recipient, amount } = req.body;
     const transaction = wallet.createTransaction(recipient, amount, transactionPool);
     p2pserver.broadcastTransaction(transaction);
     res.redirect('/transactions');
 });
+
+// get public key
+app.get('/public-key',(req,res)=>{
+    res.json({publicKey: wallet.publicKey});
+})
 
 // app server configurations
 app.listen(HTTP_PORT,()=>{

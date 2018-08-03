@@ -74,14 +74,14 @@ class P2pserver{
                 case MESSAGE_TYPE.chain:
                     /**
                      * call replace blockchain if the 
-                     * recieved chain is longer
+                     * recieved chain is longer it will replace it
                      */
                     this.blockchain.replaceChain(data.chain);
                     break;
                 case MESSAGE_TYPE.transaction:
                     /**
                      * add transaction to the transaction
-                     * pool
+                     * pool or replace with existing one
                      */
                     this.transactionPool.updateOrAddTransaction(data.transaction);
                     break;
