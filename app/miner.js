@@ -21,7 +21,7 @@ class Miner{
 
          // include reward for the miner in the valid transactions array
 
-         validTransactions.push(Transaction.rewardTransaction(this.wallet,Wallet.blockchain()));
+         validTransactions.push(Transaction.rewardTransaction(this.wallet,Wallet.blockchainWallet()));
 
          // create a block consisting of the valid transaction
 
@@ -29,7 +29,7 @@ class Miner{
 
          // synchronize the chains in the p2p server
 
-         this.p2pServer.sychChain();
+         this.p2pServer.syncChain();
 
          // clear the transaction pool
 
@@ -39,6 +39,10 @@ class Miner{
 
          this.p2pServer.broadcastClearTransactions();
 
+         return block;
+
 
     }
 }
+
+module.exports = Miner;
