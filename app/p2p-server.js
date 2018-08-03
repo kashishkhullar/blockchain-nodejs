@@ -96,7 +96,7 @@ class P2pserver{
     sendChain(socket){
         socket.send(JSON.stringify({
             type: MESSAGE_TYPE.chain,
-            chain:this.blockchain.chain
+            chain: this.blockchain.chain
         }));
     }
 
@@ -131,9 +131,10 @@ class P2pserver{
 
       sendTransaction(socket,transaction){
           socket.send(JSON.stringify({
-              type:MESSAGE_TYPE.transaction,
-              transaction:transaction
-            }));
+              type: MESSAGE_TYPE.transaction,
+              transaction: transaction
+            })
+        );
       }
 
 

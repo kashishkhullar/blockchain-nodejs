@@ -25,7 +25,7 @@ const wallet = new Wallet();
 // decentralized and synchronized using the peer to peer server
 const transactionPool = new TransactionPool();
 
-// create a p2p server instance with the blockchain
+// create a p2p server instance with the blockchain and the transaction pool
 const p2pserver = new P2pserver(blockchain,transactionPool);
 
 //EXPOSED APIs
