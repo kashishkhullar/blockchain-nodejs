@@ -1,1 +1,2 @@
-# blockchain-nodejs
+# Blockchain Nodejs
+## A nodejs implementation of bitcoin
